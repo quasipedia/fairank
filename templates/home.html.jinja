@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ranking</title>
+</head>
+<body>
+    <table>
+        <thead>
+        <td>Name</td><td>Stars</td>
+        </thead>
+        <tbody>
+            {%- for user in users %}
+            <tr>
+                <td>{{ user.name }}</td><td>{{ user.start_day }}</td>
+            </tr>
+            {%- endfor %}
+        </tbody>
+    </table>
+    <ul id="navigation">
+    {% for item in navigation %}
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+    {% endfor %}
+    </ul>
+
+    <h1>My Webpage</h1>
+    {{ a_variable }}
+
+    {# a comment #}
+</body>
+</html>
