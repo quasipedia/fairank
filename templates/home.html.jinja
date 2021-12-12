@@ -4,15 +4,18 @@
     <title>Ranking</title>
 </head>
 <body>
+    <h1>Mojang Fairank™</h1>
+    <h3>Last Updated {{ last_updated }} CET</h3>
+    <br/>
     <table>
         <thead>
             <td></td>
-            <td>NAME</td>
-            <td>FAIRANK™</td>
-            <td>STARS</td>
-            <td>COMPETITIVE DAYS</td>
-            <td>AVERAGE SPEED RANK</td>
-            <td>BEST GOLD STAR</td>
+            <td><b>NAME</b></td>
+            <td><b>FAIRANK™</b></td>
+            <td><b>STARS</b></td>
+            <td><b>COMPETITIVE DAYS</b></td>
+            <td><b>AVERAGE SPEED RANK</b></td>
+            <td><b>BEST GOLD STAR</b></td>
         </thead>
         <tbody>
             {%- for user in users %}
@@ -29,4 +32,24 @@
         </tbody>
     </table>
 </body>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+        height: 2.5em;
+    }
+
+    tr:nth-child(even) {
+        background-color: Lightgreen;
+    }
+
+    h1, h3 {
+        text-align: center;
+    }
+</style>
 </html>

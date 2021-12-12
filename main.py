@@ -7,6 +7,7 @@ import os
 from collections import defaultdict
 from itertools import chain
 import statistics
+import datetime
 
 app = Flask(__name__)
 
@@ -14,15 +15,16 @@ app = Flask(__name__)
 def get_data():
     api_url = 'https://adventofcode.com/2021/leaderboard/private/view/1102428.json'
     data_file = 'DATA.json'
-    last_update_time = os.path.getmtime(data_file)
-    if time.time() - last_update_time > 900:
+    if time.time() - os.path.getmtime(data_file) > 900:
         with open('SESSION_ID.txt') as f:
             print('DOWNLOAD')
             response = requests.get(api_url, cookies={'session': f.readline().strip()})
             with open(data_file, 'w') as f:
                 json.dump(response.json(), f)
     with open(data_file) as f:
-        return json.load(f)
+        payload = json.load(f)
+        payload['last_updated'] = os.path.getmtime(data_file)
+        return payload
 
 
 class User:
@@ -56,7 +58,7 @@ class User:
             return 'n/a'
         rank = self.gold_record['rank']
         position = '{}{}'.format(rank, self.POSITIONAL_SUFFIXES[rank] if rank in self.POSITIONAL_SUFFIXES else 'th')
-        formatted_time = time.strftime('%Hh%Mm%Ss', time.gmtime(self.gold_record['time']))
+        formatted_time = time.strftime('%Hh %Mm %Ss', time.gmtime(self.gold_record['time']))
         return '{} on day {} in {}'.format(position, self.gold_record['day'], formatted_time)
 
 
@@ -88,7 +90,9 @@ def rank_users(users):
 
 @app.route("/")
 def stats():
-    users = [User(u) for u in get_data()['members'].values()]
+    data = get_data()
+    users = [User(u) for u in data['members'].values()]
     rank_users(users)
     users.sort(key=lambda u: u.fair_rank, reverse=True)
-    return render_template('home.html.jinja', users=users)
+    last_updated = datetime.datetime.fromtimestamp(data['last_updated']).strftime("%c")
+    return render_template('home.html.jinja', users=users, last_updated=last_updated)
