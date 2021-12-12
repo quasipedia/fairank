@@ -6,25 +6,25 @@
 <body>
     <table>
         <thead>
-        <td>Name</td><td>Stars</td>
+            <td>NAME</td>
+            <td>FAIRANK™</td>
+            <td>STARS</td>
+            <td>COMPETITIVE DAYS</td>
+            <td>AVERAGE SPEED RANK</td>
+            <td>BEST GOLD STAR</td>
         </thead>
         <tbody>
             {%- for user in users %}
             <tr>
-                <td>{{ user.name }}</td><td>{{ user.start_day }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ "%03.3f" | format(user.fair_rank) }}</td>
+                <td>{{ user.stars }}</td>
+                <td>{{ user.gold_star_within_day | length }}</td>
+                <td>{{ "%03.3f" | format(user.avg_rank) }}</td>
+                <td>{{ user.gold_sentence }}</td>
             </tr>
             {%- endfor %}
         </tbody>
     </table>
-    <ul id="navigation">
-    {% for item in navigation %}
-        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
-    {% endfor %}
-    </ul>
-
-    <h1>My Webpage</h1>
-    {{ a_variable }}
-
-    {# a comment #}
 </body>
 </html>
