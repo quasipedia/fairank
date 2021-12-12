@@ -6,6 +6,7 @@
 <body>
     <table>
         <thead>
+            <td></td>
             <td>NAME</td>
             <td>FAIRANK™</td>
             <td>STARS</td>
@@ -16,6 +17,7 @@
         <tbody>
             {%- for user in users %}
             <tr>
+                <td>{{ loop.index }}</td>
                 <td>{{ user.name }}</td>
                 <td>{{ "%03.3f" | format(user.fair_rank) }}</td>
                 <td>{{ user.stars }}</td>
