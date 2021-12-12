@@ -2,6 +2,12 @@
 
 Fairank™ tries to make the ranking in Advent of Code (AoC) private boards a bit fairer.
 
+## Installation
+
+After having cloned the repo and having installed the dependencies (`pip install -r requirements.txt`).  You will have to copy the session ID from the cookie of the AoC site and save it in a file called `SESSION_ID.txt`.
+
+This is how the API on AoC works, it's not a fishy way to circumvent the system. :) 
+
 ## Rationale
 
 The main problem of the default system (which awards 100 points to the first submission, and then 99, 98, 97...) is that it awards points as one would do during a motorsport championship.  However, while in a motorsport championship the same pilots will show up at the same time, and will race undistracted under the same conditions and with vehicles of comparable performance, in AoC participants are spread across different timezones, use different languages, and they often have other personal commitments that interfere with being able to solve one puzzle every 24 hours.
