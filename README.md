@@ -14,7 +14,7 @@ Fairank™ rewards _perseverance, consistency and proficiency_.  Points are awar
 - **Each star that is obtained within 24 hours from puzzle publication is awarded 0.3 points**. This is intended to reward _consistency_: most day it is likely that a participants could find the time to solve the puzzle, if they want. (15 points max)
 - **Being the first to get a star is rewarded with 0.2 points** (there is an initial simplification, read the section on "Speed Ranking" below to learn how this really works).  This is intended to reward _proficiency_: more skilled participants - all things being the same - are likely to solve the puzzle first. (10 points max)
 
-A participant who would consistently be the first to solve all the puzzles, on the day they are published would score: **100 points** (0 * 1.5 + 50 * 0.3 + 50 * 0.2)
+A participant who would consistently be the first to solve all the puzzles, on the day they are published would score: **100 points** (50 * 1.5 + 50 * 0.3 + 50 * 0.2)
 
 ### Speed Ranking
 Ranking fairly speed is particularly tricky.
@@ -22,9 +22,9 @@ Ranking fairly speed is particularly tricky.
 The default AoC method - for boards with less than 100 participants - has two big problems related to the number of participants typically tapering off during the event:
 - **Being unable to participate is treated as being the slowest participant**.  In reality, it is often a matter of life happening (kids, business travel, sickness, power/internet outage...)
 - **Late starters are at huge disadvantage**: the delta in points between first and last on the first days - where they are last - is a lot bigger than the delta during later days - when even if they are the fastest they don't gain as much over the slower participants.
-- **The slowest participant get rewarded even if they have shown to have no speed at all.**  In fact, the least participants, the higher the reward.
+- **The slowest participant get rewarded even if they have shown to have no speed at all.**  In fact, the less the participants, the higher the reward.
 
 Fairank™ tries to mitigate the above points by:
 - **Looking at a participant's speed only if they entered the solution on the day the puzzle was published**.  This solves the problem of late starters.  And for people who couldn't commit to AoC on a given day for whatever reason.
-- **Computing speed on a linear continuum between 1 for the fastest participant, and close-to-0 for the slowest one** (the actual formula is 1 - <finish-position-minus-one>/<number-of-finishers>). This means for example that if there were 4 participants their speed would be 1-0/4 = **1.0**, 1-1/4 = **0.75**, 1-2/4 = **0.5** and 1-3/4 = **0.25**.
-- **Assuming participants will have consistent speed throughout the competition** (i.e.: if a participant has been very fast in solving most of the puzzles, it is fair to imagine they would have been so in the other puzzles too).  Concretely this means that **the 10 points assigned for _proficiency_ are computed as 10 * average_speed**.  A participant' average speed is computed on a sample of at least 30 stars, missing ones being considered speed=0.
+- **Computing speed on a linear continuum between 1 for the fastest participant, and close-to-0 for the slowest one** (the actual formula is `1 - <finish-position-minus-one>/<number-of-finishers>`). This means for example that if there were 4 participants their speed would be 1-0/4 = **1.0**, 1-1/4 = **0.75**, 1-2/4 = **0.5** and 1-3/4 = **0.25**.
+- **Assuming participants will have consistent speed throughout the competition** (i.e.: if a participant has been very fast in solving most of the puzzles, it is fair to imagine they would have been so in the other puzzles too).  Concretely this means that **the 10 points assigned for _proficiency_ are computed as `10 * <average-speed-for-days-where-solution-was-given-in-less-than-24h>`**.  A participant' average speed is computed on a sample of at least 30 stars, missing ones being considered having speed of 0.
