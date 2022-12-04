@@ -21,11 +21,12 @@ def get_data():
         print('DOWNLOAD')
         response = requests.get(CONFIG['api_url'], cookies={'session': CONFIG['session_id']})
         with open(data_fname, 'w') as data_fname:
-            json.dump(response.json(), data_fname, indent=2)
+            content = response.json()
+            content['last_updated'] = time.time()
+            json.dump(content, data_fname, indent=2)
+            return content
     with open(data_fname) as data_file:
-        payload = json.load(data_file)
-        payload['last_updated'] = os.path.getmtime(data_fname)
-        return payload
+        return json.load(data_file)
 
 
 class User:
