@@ -11,25 +11,28 @@ import datetime
 
 app = Flask(__name__)
 
+CONFIG = {}
+with open('CONFIG.json') as config_file:
+    CONFIG = json.load(config_file)
 
 def get_data():
-    api_url = 'https://adventofcode.com/2021/leaderboard/private/view/1102428.json'
-    data_file = 'DATA.json'
-    if time.time() - os.path.getmtime(data_file) > 900:
-        with open('SESSION_ID.txt') as f:
-            print('DOWNLOAD')
-            response = requests.get(api_url, cookies={'session': f.readline().strip()})
-            with open(data_file, 'w') as f:
-                json.dump(response.json(), f)
-    with open(data_file) as f:
-        payload = json.load(f)
-        payload['last_updated'] = os.path.getmtime(data_file)
+    data_fname = 'DATA.json'
+    if time.time() - os.path.getmtime(data_fname) > 900:
+        print('DOWNLOAD')
+        response = requests.get(CONFIG['api_url'], cookies={'session': CONFIG['session_id']})
+        with open(data_fname, 'w') as data_fname:
+            json.dump(response.json(), data_fname, indent=2)
+    with open(data_fname) as data_file:
+        payload = json.load(data_file)
+        payload['last_updated'] = os.path.getmtime(data_fname)
         return payload
 
 
 class User:
 
-    COMPETITION_START = 1638334800  # Midnight UTC-5 of 01.12.2021
+    COMPETITION_START = int(
+        datetime.datetime.fromisoformat("{}-12-01T00:00:00-05:00".format(CONFIG['year'])).timestamp())
+    # 1638334800  # Midnight UTC-5 of 01.12.2021
     POSITIONAL_SUFFIXES = {1: 'st', 2: 'nd', 3: 'rd'}
 
     def __init__(self, data):
