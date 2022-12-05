@@ -99,4 +99,5 @@ def stats():
     rank_users(users)
     users.sort(key=lambda u: u.fair_rank, reverse=True)
     last_updated = datetime.datetime.fromtimestamp(data['last_updated']).strftime("%c")
-    return render_template('home.html.jinja', users=users, last_updated=last_updated)
+    board_name = CONFIG['board_name']
+    return render_template('home.html.jinja', users=users, last_updated=last_updated, board_name=board_name)
